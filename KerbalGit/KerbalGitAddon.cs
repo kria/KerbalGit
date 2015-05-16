@@ -33,6 +33,15 @@ namespace KerbalGit
         private string modDir;
         private DateTime latestCommit;
 
+        public static KerbalGitAddon Instance { get; private set; }
+
+        void Awake()
+        {
+            if (Instance != null) return;
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+
         public void Start()
         {
             try
@@ -59,7 +68,7 @@ namespace KerbalGit
             }
         }
 
-        private void OnSaved(Game game)
+        public void OnSaved(Game game)
         {
             StartCoroutine(DelayedOnSaved(game));
         }
