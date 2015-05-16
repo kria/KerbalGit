@@ -13,11 +13,13 @@
 
 using LibGit2Sharp;
 using System;
-using System.Reflection;
-using UnityEngine;
-using System.IO;
-using KerbalGit.Properties;
+using System.Collections;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using UnityEngine;
 
 namespace KerbalGit
 {
@@ -39,12 +41,12 @@ namespace KerbalGit
                 print(String.Format("KerbalGit {0} started", version));
                 modDir = String.Format("{0}GameData/{1}/", KSPUtil.ApplicationRootPath, ModName);
                 savesDir = KSPUtil.ApplicationRootPath + "saves/";
-                settings = ConfigNode.Load(String.Format("{0}GameData/{1}/settings.cfg", KSPUtil.ApplicationRootPath, ModName));
+                settings = ConfigNode.Load(modDir + "settings.cfg");
                 wait = int.Parse(settings.GetValue("wait"));
 
                 if (!Repository.IsValid(savesDir))
                 {
-                    print("KerbalGit: Initializing repo");
+                    print("KerbalGit: Initializing repo...");
                     Repository.Init(savesDir, modDir);
                     File.WriteAllText(savesDir + ".gitignore", Properties.Resources.gitignore);
                 }
@@ -86,8 +88,24 @@ namespace KerbalGit
                         {
                             Signature author = new Signature(settings.GetValue("name"), settings.GetValue("email"), DateTime.Now);
 
-                            print("KerbalGit: Committing");
-                            Commit commit = repo.Commit(settings.GetValue("message"), author);
+                            var sb = new StringBuilder();
+                            
+                            sb.AppendFormat("Game: {0}", game.Title);
+                            sb.AppendFormat(", Time: {0}", KSPUtil.PrintDate((int)game.UniversalTime, true, true));
+                            if (Funding.Instance != null)
+                                sb.AppendFormat(", Funds: {0:N0}", (int)Funding.Instance.Funds);
+                            if (ResearchAndDevelopment.Instance != null)
+                                sb.AppendFormat(", Science: {0:N0}", (int)ResearchAndDevelopment.Instance.Science);
+                            if (Reputation.Instance != null)
+                                sb.AppendFormat(", Reputation: {0}%", (int)Reputation.Instance.reputation / 10);
+                            if (FlightGlobals.ready && FlightGlobals.Vessels != null)
+                                sb.AppendFormat(", Flights: {0}", FlightGlobals.Vessels.Count(v => v.vesselType != VesselType.Debris && 
+                                v.vesselType != VesselType.SpaceObject && v.vesselType != VesselType.Unknown));
+                            if (Contracts.ContractSystem.Instance != null)
+                                sb.AppendFormat(", Contracts: {0}", Contracts.ContractSystem.Instance.GetActiveContractCount());
+
+                            print("KerbalGit: Committing...");
+                            Commit commit = repo.Commit(sb.ToString(), author);
                             latestCommit = DateTime.Now;
                         }
                     }

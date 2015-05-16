@@ -1,14 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KerbalGit", "KerbalGit\KerbalGit.csproj", "{1D0EFC4F-F7AE-420D-A0DB-09EA31FBCD5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79534E60-7628-41DC-9202-56775CFE2FB5}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		settings.cfg = settings.cfg
 	EndProjectSection
 EndProject
 Global

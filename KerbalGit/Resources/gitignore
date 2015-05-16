@@ -1,6 +1,5 @@
-# Ignore everything
-*.*
+/scenarios/
+/training/
 
-# Except
-!.gitignore
-!*/persistent.sfs
+# Uncomment to ignore all Ships folders
+#Ships/
