@@ -61,10 +61,17 @@ namespace KerbalGit
 
         private void OnSaved(Game game)
         {
+            StartCoroutine(DelayedOnSaved(game));
+        }
+
+        private IEnumerator DelayedOnSaved(Game game)
+        {
             var timer = new Stopwatch();
             timer.Start();
 
             print("KerbalGit: Entering OnSaved");
+
+            yield return new WaitForSeconds(1); // It seems ksp needs time to finish saving
 
             try
             {
@@ -120,7 +127,7 @@ namespace KerbalGit
                 timer.Stop();
                 print("KerbalGit: Exiting OnSaved after " + timer.Elapsed);
             }
-            
         }
+
     }
 }
