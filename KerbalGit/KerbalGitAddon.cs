@@ -82,6 +82,8 @@ namespace KerbalGit
 
             yield return new WaitForSeconds(1); // It seems ksp needs time to finish saving
 
+            print("KerbalGit: Finished waiting");
+
             try
             {
                 if (latestCommit == DateTime.MinValue || (DateTime.Now - latestCommit) > TimeSpan.FromSeconds(wait))
@@ -95,6 +97,7 @@ namespace KerbalGit
                         {
                             if (entry.State == FileStatus.Modified || entry.State == FileStatus.Untracked)
                             {
+                                print("KerbalGit: Staging " +  entry.FilePath);
                                 repo.Index.Stage(entry.FilePath);
                                 isStaged = true;
                             }

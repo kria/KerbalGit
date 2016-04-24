@@ -23,7 +23,7 @@ namespace KerbalGit
         {
             try
             {
-                EditorLogic.fetch.saveBtn.AddValueChangedDelegate(OnSaveButtonClick);
+                EditorLogic.fetch.saveBtn.onClick.AddListener(OnSaveButtonClick);
             }
             catch (Exception ex)
             {
@@ -31,7 +31,7 @@ namespace KerbalGit
             }
         }
 
-        public void OnSaveButtonClick(IUIObject obj)
+        public void OnSaveButtonClick()
         {
             if (KerbalGitAddon.Instance != null)
                 KerbalGitAddon.Instance.OnSaved(HighLogic.CurrentGame);
