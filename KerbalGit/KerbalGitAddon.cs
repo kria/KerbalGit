@@ -95,7 +95,7 @@ namespace KerbalGit
                         bool isStaged = false;
                         foreach (var entry in repoStatus)
                         {
-                            if (entry.State == FileStatus.Modified || entry.State == FileStatus.Untracked)
+                            if (entry.State == FileStatus.Modified || entry.State == FileStatus.Untracked || entry.State == FileStatus.Missing)
                             {
                                 print("KerbalGit: Staging " +  entry.FilePath);
                                 repo.Index.Stage(entry.FilePath);
