@@ -24,7 +24,7 @@ A Windows binary (git2-06d772d.dll) is included, but separate [builds][0] are ne
 
 1. Get the latest [release][1].
 2. Copy `GameData/KerbalGit/` to your KSP directory.
-3. Copy `git2-06d772d.dll` (on Windows) to the root of your KSP directory.
+3. Copy `git2-06d772d.dll` (on Windows) to the root of your KSP directory. Pick the correct one from `NativeBinaries/` depending on if you run KSP in 32-bit or 64-bit mode.
 
 [1]: https://github.com/kria/KerbalGit/releases
 
